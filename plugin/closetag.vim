@@ -138,8 +138,8 @@ endif
 let loaded_closetag=1
 
 " set up mappings for tag closing
-inoremap <<TAB> <C-R>=GetCloseTag()<CR>
-inoremap <C-_> <C-R>=GetCloseTag()<CR>
+inoremap <<TAB> <C-R>=GetCloseTag("")<CR>
+inoremap <C-_> <C-R>=GetCloseTag("")<CR>
 map <C-_> a<C-_><ESC>
 
 "------------------------------------------------------------------------------
@@ -226,10 +226,10 @@ endfunction
 
 " Returns closing tag for most recent unclosed tag, respecting the
 " current setting of b:unaryTagsStack for tags that should not be closed
-function! GetCloseTag()
+function! GetCloseTag(rep)
     let tag=GetLastOpenTag("b:unaryTagsStack")
     if tag == ""
-        return ""
+        return a:rep
     else
         return "</".tag.">"
     endif
